@@ -1,0 +1,8 @@
+homeassistant: false
+permit_join: false
+mqtt:
+  base_topic: zigbee2mqtt
+  server: mqtt://localhost
+serial:
+  port: /dev/ttyACM0
+  adapter: zstack

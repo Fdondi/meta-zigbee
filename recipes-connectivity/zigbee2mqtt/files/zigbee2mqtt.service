@@ -1,0 +1,16 @@
+# File: meta-zigbee2mqtt/recipes-connectivity/zigbee2mqtt/zigbee2mqtt.service
+[Unit]
+Description=zigbee2mqtt
+After=network.target mosquitto.service
+
+[Service]
+ExecStart=/usr/bin/node /usr/lib/node_modules/zigbee2mqtt/index.js
+WorkingDirectory=/usr/lib/node_modules/zigbee2mqtt
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=root
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
