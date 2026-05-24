@@ -5,12 +5,11 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=eb1e647870add0502f8f010b19de6bdb"
 
 # Use the release tarball which includes pre-built frontend assets,
 # avoiding a full Node.js/Webpack build during the Yocto build.
-PV = "11.0.0"
 SRC_URI = "https://github.com/grafana/grafana/archive/refs/tags/v${PV}.tar.gz;downloadfilename=grafana-${PV}.tar.gz \
            file://grafana.service \
            file://grafana.ini \
            "
-SRC_URI[sha256sum] = "b3a5e6d8c4f1a9207e0d3c5b8f4a1e9207e0d3c5b8f4a1e9207e0d3c5b8f4a1e"
+SRC_URI[sha256sum] = "ae72149e25c44aa0d0c8f80b9790e70793711f8ad4ad769d2ebaa069c0e63e50"
 
 S = "${WORKDIR}/grafana-${PV}"
 

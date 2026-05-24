@@ -3,8 +3,11 @@ HOMEPAGE = "https://www.influxdata.com/time-series-platform/telegraf/"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
 
-SRC_URI = "git://github.com/influxdata/telegraf.git;protocol=https;branch=master;srcrev=${SRCREV}"
-SRCREV = "d94af3bdb6264e71aabff7bdf2a17a3cec1d4cb0"
+SRC_URI = "git://github.com/influxdata/telegraf.git;protocol=https;branch=master;srcrev=${SRCREV} \
+           file://telegraf.conf \
+           file://telegraf.service \
+           "
+SRCREV = "c79b06d58e912124624d029a88bbe182254f0ff4"
 
 S = "${WORKDIR}/git"
 

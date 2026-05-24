@@ -3,8 +3,13 @@ HOMEPAGE = "https://github.com/influxdata/influxdb3_core"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 
-SRC_URI = "git://github.com/influxdata/influxdb3_core.git;protocol=https;branch=main;srcrev=${SRCREV}"
-SRCREV = "76d57e5d2c58c6b7a14a13b2a4e23f1ef84bd0a3"
+# No release tags yet — pinned to latest main as of 2026-05-25
+PV = "3.0+git"
+SRC_URI = "git://github.com/influxdata/influxdb3_core.git;protocol=https;branch=main;srcrev=${SRCREV} \
+           file://influxdb3.service \
+           file://influxdb3.env \
+           "
+SRCREV = "349d802bf9a54ab5876399ab013502eeb0d52a6b"
 
 S = "${WORKDIR}/git"
 
@@ -15,11 +20,6 @@ SYSTEMD_AUTO_ENABLE:${PN} = "enable"
 
 # InfluxDB 3 data directory on eMMC
 INFLUXDB3_DATA_DIR ?= "/var/lib/influxdb3"
-
-SRC_URI += " \
-    file://influxdb3.service \
-    file://influxdb3.env \
-    "
 
 do_install() {
     install -d ${D}${bindir}
