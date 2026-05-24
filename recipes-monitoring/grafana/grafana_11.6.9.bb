@@ -24,8 +24,8 @@ GRAFANA_LOG_DIR  ?= "/var/log/grafana"
 # Pre-built ARM binary — skip QA checks for arch/stripped
 INSANE_SKIP:${PN} = "already-stripped arch"
 
-do_configure() { : ; }
-do_compile()   { : ; }
+do_configure[noexec] = "1"
+do_compile[noexec] = "1"
 
 do_install() {
     install -d ${D}${bindir}
