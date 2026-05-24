@@ -1,21 +1,19 @@
 SUMMARY = "Open source analytics and monitoring platform"
 HOMEPAGE = "https://grafana.com"
 LICENSE = "AGPL-3.0-only"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=eb1e647870add0502f8f010b19de6bdb"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=eb1e647870add0502f8f010b19de32af"
 
-# Use the release tarball which includes pre-built frontend assets,
-# avoiding a full Node.js/Webpack build during the Yocto build.
-SRC_URI = "https://github.com/grafana/grafana/archive/refs/tags/v${PV}.tar.gz;downloadfilename=grafana-${PV}.tar.gz \
+# Use the official pre-built ARMv7 binary — building Grafana from source
+# requires a full Node.js/Webpack frontend build which is not practical in Yocto.
+SRC_URI = "https://dl.grafana.com/oss/release/grafana-${PV}.linux-armv7.tar.gz \
            file://grafana.service \
            file://grafana.ini \
            "
-SRC_URI[sha256sum] = "ae72149e25c44aa0d0c8f80b9790e70793711f8ad4ad769d2ebaa069c0e63e50"
+SRC_URI[sha256sum] = "82161b4e8b83ac3c1fe8aab3a6711630a44e5ce237cc02dd4aacf7387a3384a5"
 
-S = "${WORKDIR}/grafana-${PV}"
+S = "${WORKDIR}/grafana-v${PV}"
 
-inherit go-module systemd
-
-GO_IMPORT = "github.com/grafana/grafana"
+inherit systemd
 
 SYSTEMD_SERVICE:${PN} = "grafana.service"
 SYSTEMD_AUTO_ENABLE:${PN} = "enable"
@@ -23,20 +21,20 @@ SYSTEMD_AUTO_ENABLE:${PN} = "enable"
 GRAFANA_DATA_DIR ?= "/var/lib/grafana"
 GRAFANA_LOG_DIR  ?= "/var/log/grafana"
 
-do_compile() {
-    cd ${S}
-    export GOARCH="${TARGET_GOARCH}"
-    export GOOS="linux"
-    export CGO_ENABLED="0"
-    go build -o ${B}/grafana-server ./pkg/cmd/grafana-server
-}
+# Pre-built ARM binary — skip QA checks for arch/stripped
+INSANE_SKIP:${PN} = "already-stripped arch"
+
+do_configure() { : ; }
+do_compile()   { : ; }
 
 do_install() {
     install -d ${D}${bindir}
-    install -m 0755 ${B}/grafana-server ${D}${bindir}/grafana-server
+    install -m 0755 ${S}/bin/grafana        ${D}${bindir}/grafana
+    install -m 0755 ${S}/bin/grafana-server ${D}${bindir}/grafana-server
 
     install -d ${D}${datadir}/grafana
     cp -r ${S}/public ${D}${datadir}/grafana/
+    cp -r ${S}/conf   ${D}${datadir}/grafana/
 
     install -d ${D}${sysconfdir}/grafana
     install -m 0644 ${WORKDIR}/grafana.ini ${D}${sysconfdir}/grafana/grafana.ini
@@ -49,6 +47,7 @@ do_install() {
 }
 
 FILES:${PN} = " \
+    ${bindir}/grafana \
     ${bindir}/grafana-server \
     ${datadir}/grafana \
     ${sysconfdir}/grafana \

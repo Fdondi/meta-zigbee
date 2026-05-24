@@ -18,7 +18,6 @@ inherit cargo systemd
 SYSTEMD_SERVICE:${PN} = "influxdb3.service"
 SYSTEMD_AUTO_ENABLE:${PN} = "enable"
 
-# InfluxDB 3 data directory on eMMC
 INFLUXDB3_DATA_DIR ?= "/var/lib/influxdb3"
 
 do_install() {
