@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://src/${GO_IMPORT}/LICENSE;md5=fe53cff8eef1afa881ea0e63
 GO_IMPORT = "github.com/influxdata/telegraf"
 GO_INSTALL = "${GO_IMPORT}/cmd/telegraf"
 
-SRC_URI = "git://${GO_IMPORT}.git;protocol=https;branch=master;destsuffix=${BPN}-${PV}/src/${GO_IMPORT} \
+SRC_URI = "git://${GO_IMPORT}.git;protocol=https;nobranch=1;destsuffix=${BPN}-${PV}/src/${GO_IMPORT} \
            file://telegraf.conf \
            file://telegraf.service \
            "

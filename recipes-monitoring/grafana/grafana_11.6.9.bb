@@ -11,7 +11,7 @@ SRC_URI = "https://dl.grafana.com/oss/release/grafana-${PV}.linux-armv7.tar.gz \
            "
 SRC_URI[sha256sum] = "82161b4e8b83ac3c1fe8aab3a6711630a44e5ce237cc02dd4aacf7387a3384a5"
 
-S = "${WORKDIR}/grafana-v${PV}"
+S = "${WORKDIR}/grafana-${PV}"
 
 inherit systemd
 
@@ -31,6 +31,7 @@ do_install() {
     install -d ${D}${bindir}
     install -m 0755 ${S}/bin/grafana        ${D}${bindir}/grafana
     install -m 0755 ${S}/bin/grafana-server ${D}${bindir}/grafana-server
+    install -m 0755 ${S}/bin/grafana-cli    ${D}${bindir}/grafana-cli
 
     install -d ${D}${datadir}/grafana
     cp -r ${S}/public ${D}${datadir}/grafana/
@@ -49,6 +50,7 @@ do_install() {
 FILES:${PN} = " \
     ${bindir}/grafana \
     ${bindir}/grafana-server \
+    ${bindir}/grafana-cli \
     ${datadir}/grafana \
     ${sysconfdir}/grafana \
     ${systemd_unitdir}/system/grafana.service \
