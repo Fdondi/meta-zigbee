@@ -1,0 +1,11 @@
+[Unit]
+Description=Telegraf
+After=network.target mosquitto.service influxdb3.service
+
+[Service]
+ExecStart=/usr/bin/telegraf --config /etc/telegraf/telegraf.conf
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target

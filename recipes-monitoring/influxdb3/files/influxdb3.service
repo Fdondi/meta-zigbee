@@ -1,0 +1,15 @@
+[Unit]
+Description=InfluxDB 3 Core
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/default/influxdb3
+ExecStart=/usr/bin/influxdb3 serve \
+    --data-dir=${INFLUXDB3_DATA_DIR} \
+    --host-id=beaglebone \
+    --http-bind=0.0.0.0:8086
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target

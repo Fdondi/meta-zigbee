@@ -1,0 +1,52 @@
+header:
+  version: 14
+
+machine: beaglebone-yocto
+distro: poky
+target:
+  - zigbee-gateway
+  - zigbee-gateway-full
+
+repos:
+  poky:
+    url: https://git.yoctoproject.org/poky
+    branch: scarthgap
+    layers:
+      meta:
+      meta-poky:
+      meta-yocto-bsp:
+
+  meta-openembedded:
+    url: https://git.openembedded.org/meta-openembedded
+    branch: scarthgap
+    layers:
+      meta-oe:
+      meta-python:
+      meta-networking:
+
+  meta-arm:
+    url: https://git.yoctoproject.org/meta-arm
+    branch: scarthgap
+    layers:
+      meta-arm:
+      meta-arm-toolchain:
+
+  meta-ti:
+    url: https://github.com/TexasInstruments/meta-ti
+    branch: scarthgap
+    layers:
+      meta-ti-bsp:
+      meta-beagle:
+
+  meta-zigbee:
+    url: https://github.com/Fdondi/meta-zigbee
+    branch: main
+    layers:
+      .:
+
+local_conf_header:
+  meta-zigbee: |
+    BB_NUMBER_THREADS = "8"
+    PARALLEL_MAKE = "-j8"
+    PARALLEL_MAKE:pn-llvm-native = "-j2"
+    CONF_VERSION = "2"

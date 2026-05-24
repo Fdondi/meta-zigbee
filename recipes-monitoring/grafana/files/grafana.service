@@ -1,0 +1,13 @@
+[Unit]
+Description=Grafana
+After=network.target influxdb3.service
+
+[Service]
+ExecStart=/usr/bin/grafana-server \
+    --config=/etc/grafana/grafana.ini \
+    --homepath=/usr/share/grafana
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
