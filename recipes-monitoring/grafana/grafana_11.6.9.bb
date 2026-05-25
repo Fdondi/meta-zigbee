@@ -19,7 +19,6 @@ SYSTEMD_SERVICE:${PN} = "grafana.service"
 SYSTEMD_AUTO_ENABLE:${PN} = "enable"
 
 GRAFANA_DATA_DIR ?= "/var/lib/grafana"
-GRAFANA_LOG_DIR  ?= "/var/log/grafana"
 
 # Pre-built ARM binary — skip QA checks for arch/stripped
 INSANE_SKIP:${PN} = "already-stripped arch"
@@ -44,7 +43,6 @@ do_install() {
     install -m 0644 ${WORKDIR}/grafana.service ${D}${systemd_unitdir}/system/
 
     install -d ${D}${GRAFANA_DATA_DIR}
-    install -d ${D}${GRAFANA_LOG_DIR}
 }
 
 FILES:${PN} = " \
@@ -55,5 +53,4 @@ FILES:${PN} = " \
     ${sysconfdir}/grafana \
     ${systemd_unitdir}/system/grafana.service \
     ${GRAFANA_DATA_DIR} \
-    ${GRAFANA_LOG_DIR} \
     "

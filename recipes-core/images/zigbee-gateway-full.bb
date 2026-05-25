@@ -9,7 +9,7 @@ IMAGE_INSTALL:append = " \
     nodejs \
     python3 \
     telegraf \
-    influxdb3 \
+    influxdb \
     grafana \
     "
 
