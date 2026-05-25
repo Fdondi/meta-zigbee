@@ -50,3 +50,6 @@ local_conf_header:
     PARALLEL_MAKE = "-j8"
     PARALLEL_MAKE:pn-llvm-native = "-j2"
     CONF_VERSION = "2"
+    DISTRO_FEATURES:append = " systemd usrmerge"
+    VIRTUAL-RUNTIME_init_manager = "systemd"
+    VIRTUAL-RUNTIME_initscripts = ""
