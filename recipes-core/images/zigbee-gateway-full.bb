@@ -13,6 +13,6 @@ IMAGE_INSTALL:append = " \
     grafana \
     "
 
-# eMMC-friendly: ext4 rootfs + WIC with emmc partition layout
-IMAGE_FSTYPES = "ext4 wic wic.bmap"
-WKS_FILE = "beaglebone-emmc.wks"
+# eMMC layout for real hardware; QEMU just needs ext4
+IMAGE_FSTYPES:beaglebone-yocto = "ext4 wic wic.bmap"
+WKS_FILE:beaglebone-yocto = "beaglebone-emmc.wks"
